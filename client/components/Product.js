@@ -3,10 +3,10 @@ import { deleteProduct } from '../store';
 import { connect } from 'react-redux';
 
 const Product = ({ product, deleteProduct }) => {
-  const { name } = product;
+  const { name, rating } = product;
   return (
     <li>
-      {name}
+      {name} {rating}
       <button onClick={() => deleteProduct(product)}>x</button>
     </li>
   );

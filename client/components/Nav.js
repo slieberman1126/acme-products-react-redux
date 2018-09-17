@@ -3,16 +3,16 @@ import { setFilter, createProduct } from '../store';
 import { connect } from 'react-redux';
 import faker from 'faker';
 
-const Nav = ({ _createProduct, allProducts, productName }) => {
+const Nav = ({ _createProduct, topRated, products }) => {
   return (
     <ul>
-      <li onClick={() => setFilter('ALL')}>Products ({allProducts})</li>
-      <li onClick={() => setFilter('MAX')}>Top Rated ({productName})</li>
+      <li onClick={() => setFilter('ALL')}>Products ({products.length})</li>
+      <li onClick={() => setFilter('MAX')}>Top Rated ({topRated.name})</li>
       <button
         onClick={() =>
           _createProduct({
             name: faker.commerce.product(),
-            rating: faker.random.number({ min: 0, max: 10 }),
+            rating: Math.floor(Math.random() * 10),
           })
         }
       >
@@ -21,13 +21,10 @@ const Nav = ({ _createProduct, allProducts, productName }) => {
     </ul>
   );
 };
-const mapStateToProps = ({ filter, products }) => {
-  const allProducts = products.length;
-  const productName = products.filter(product => product.max);
+const mapStateToProps = ({ topRated, products }) => {
   return {
-    filter,
-    allProducts,
-    productName,
+    topRated,
+    products,
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -56,35 +56,55 @@ const createProduct = product => {
       .then(product => dispatch(_createProduct(product)));
   };
 };
-
-const productReducer = (state = [], action) => {
+const initialState = {
+  products: [],
+  topRated: {},
+};
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
-      state = action.products;
-      break;
+      let topRating = 0;
+      let topRated = {};
+      action.products.forEach(product => {
+        if (product.rating >= topRating) {
+          topRating = product.rating;
+          topRated = product;
+        }
+      });
+      return { ...state, products: action.products, topRated: topRated };
     case CREATE_PRODUCT:
-      state = [...state, action.product];
-      break;
+      if (action.product.rating >= state.topRated.rating) {
+        return {
+          ...state,
+          products: [...state.products, action.product],
+          topRated: action.product,
+        };
+      } else {
+        return {
+          ...state,
+          products: [...state.products, action.product],
+          topRated: [...state.topRated],
+        };
+      }
+
     case DELETE_PRODUCT:
-      state = state.filter(product => product.id !== action.product.id);
-      break;
+      const toDelete = state.products.filter(
+        product => product.id !== action.product.id
+      );
+      let top = 0;
+      let topProduct = {};
+      toDelete.forEach(product => {
+        if (product.rating >= top) {
+          top = product.rating;
+          topProduct = product;
+        }
+      });
+      return { ...state, products: toDelete, topRated: topProduct };
     default:
       return state;
   }
 };
-const filterReducer = (state = 'ALL', action) => {
-  switch (action.type) {
-    case SET_FILTER:
-      state = action.filter;
-      break;
-    default:
-      return state;
-  }
-};
-const reducer = combineReducers({
-  products: productReducer,
-  filter: filterReducer,
-});
+
 const store = createStore(reducer, applyMiddleware(logger, thunk));
 
 export default store;

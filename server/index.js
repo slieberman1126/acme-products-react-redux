@@ -4,7 +4,7 @@ const app = express();
 const morgan = require('morgan');
 const db = require('./db');
 const { Product } = db.models;
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 db.syncAndSeed();
 
 app.use(morgan('dev'));

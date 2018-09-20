@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "postinstall": "npm run webpack ",
     "start": "npm run build-watch & npm run start-server",
     "start-server": "DATABASE_URL=postgres://localhost/my_db nodemon server --ignore client --ignore public",
     "build-watch": "webpack -w"

@@ -2,16 +2,13 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const db = require('./db');
-const { Product } = db.models;
 const PORT = process.env.PORT || 3000;
-db.syncAndSeed();
-
+const db = require('./db');
 app.use(morgan('dev'));
 app.use(require('body-parser').json());
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
+db.syncAndSeed();
 app.get('/api/products', (req, res, next) => {
   Product.findAll()
     .then(products => res.send(products))

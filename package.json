@@ -8,12 +8,6 @@
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/my_db nodemon server.js --ignore src/ --ignore dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-
-  },
   "author": "Cassio Zen",
   "license": "ISC",
   "dependencies": {

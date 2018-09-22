@@ -1,38 +1,41 @@
 {
-  "name": "acme-products-react-redux",
-  "version": "0.1.0",
+  "name": "template",
+  "version": "1.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "npm run build-watch & npm run start-server",
-    "start-server": "DATABASE_URL=postgres://localhost/my_db nodemon server --ignore client --ignore public",
-    "build-watch": "webpack -w"
+    "postinstall": "npm run webpack",
+    "webpack": "webpack",
+    "build": "npm run webpack -- --watch --mode=development",
+    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/my_db nodemon server.js --ignore dist --ignore src"
   },
-  "author": "Cassio Zen",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "babel": {
+    "presets": [
+      "react"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.3",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "faker": "^4.1.0",
-    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
     "pg": "^7.4.3",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^4.38.1"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "nodemon": "^1.14.11",
-    "webpack": "^3.10.0"
+    "sequelize": "^4.38.1",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
   }
 }

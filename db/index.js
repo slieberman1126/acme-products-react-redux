@@ -1,16 +1,6 @@
-const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL);
+const conn = require('./conn');
+const Product = require('./Product');
 
-const Product = conn.define('product', {
-  name: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  rating: {
-    type: Sequelize.INTEGER,
-  },
-});
 const syncAndSeed = () => {
   return conn
     .sync({ force: true })
